@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+
+        <meta charset="UTF-8">
+
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+            >
+
+        <title>Minha Lista - DramaList</title>
+
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+
+        <link
+            rel="preconnect"
+            href="https://fonts.gstatic.com"
+            crossorigin
+            >
+
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+            >
+
+
+        <link
+            rel="stylesheet"
+            href="/css/style.css"
+            >
+
+        <link
+            rel="stylesheet"
+            href="/css/minha-lista.css"
+            >
+
+    </head>
+
+
+    <body>
+
+
+        <header>
+
+            <a href="/" class="logo">
+
+                <img
+                    src="/img/logodramalist.png"
+                    alt="Logo DramaList"
+                    >
+
+            </a>
+
+
+            <nav>
+
+                <a href="/">
+                    Início
+                </a>
+
+                <a href="/catalogo">
+                    Catálogo
+                </a>
+
+                <a
+                    href="/minha-lista"
+                    class="pagina-atual"
+                    >
+                    Minha Lista
+                </a>
+
+            </nav>
+
+
+            <div class="menu-perfil">
+
+                <button
+                    type="button"
+                    class="perfil"
+                    id="botaoPerfil"
+                    aria-label="Abrir menu do perfil"
+                    aria-expanded="false"
+                    th:text="${#strings.substring(usuario.nome, 0, 1).toUpperCase()}"
+                    ></button>
+
+
+                <div
+                    class="dropdown-perfil"
+                    id="dropdownPerfil"
+                    >
+
+                    <a href="/perfil">
+                        👤 Meu perfil
+                    </a>
+
+                    <button
+                        type="button"
+                        id="botaoTema"
+                        >
+                        🌙 Tema escuro
+                    </button>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <main class="minha-lista">
+
+
+            <section class="cabecalho-minha-lista">
+
+                <h1>
+                    Minha Lista
+                </h1>
+
+                <p>
+                    Organize os dramas que você quer assistir.
+                </p>
+
+
+                <div class="barra-pesquisa">
+
+                    <span>
+                        ⌕
+                    </span>
+
+                    <input
+                        type="search"
+                        id="pesquisaLista"
+                        placeholder="Pesquisar drama"
+                        autocomplete="off"
+                        >
+
+                </div>
+
+            </section>
+
+
+            <section class="filtros-lista">
+
+                <button
+                    class="filtro-lista ativo"
+                    data-filtro="todos"
+                    >
+                    Todos
+                </button>
+
+                <button
+                    class="filtro-lista"
+                    data-filtro="quero assistir"
+                    >
+                    📌 Quero assistir
+                </button>
+
+                <button
+                    class="filtro-lista"
+                    data-filtro="assistindo"
+                    >
+                    👀 Assistindo
+                </button>
+
+                <button
+                    class="filtro-lista"
+                    data-filtro="concluído"
+                    >
+                    ✅ Concluído
+                </button>
+
+            </section>
+
+
+            <section class="resultado-minha-lista">
+
+                <div
+                    class="grid-minha-lista"
+                    id="gridMinhaLista"
+                    >
+
+
+                    <article
+                        class="card-lista"
+                        th:each="item : ${minhaLista}"
+                        >
+
+
+                        <a
+                            th:href="@{'/drama/' + ${item.drama.idDrama}}"
+                            class="link-card-lista"
+                            >
+
+                            <div class="poster-lista">
+
+                                <img
+                                    th:src="@{'/img/' + ${imagens[item.drama.idDrama]}}"
+                                    th:alt="'Poster de ' + ${item.drama.titulo}"
+                                    >
+
+                            </div>
+
+                        </a>
+
+
+
+                        <div class="info-lista">
+
+
+                            <!-- TÍTULO -->
+
+                            <h2>
+
+                                <a
+                                    th:href="@{'/drama/' + ${item.drama.idDrama}}"
+                                    class="titulo-card-lista"
+                                    th:text="${item.drama.titulo}"
+                                    >
+                                    Título do drama
+                                </a>
+
+                            </h2>
+
+
+                            <p class="avaliacao-lista">
+
+                                <span>
+                                    ★
+                                </span>
+
+
+                                <span
+                                    th:if="${avaliacoes[item.drama.idDrama] != null}"
+                                    th:text="${#numbers.formatDecimal(
+                                    avaliacoes[item.drama.idDrama],
+                                    1,
+                                    1
+                                    )}"
+                                    >
+                                    0,0
+                                </span>
+
+
+                                <span
+                                    th:if="${avaliacoes[item.drama.idDrama] == null}"
+                                    >
+                                    --
+                                </span>
+
+                            </p>
+
+
+                            <span class="status-label">
+                                Status
+                            </span>
+
+
+                            <form
+                                th:action="@{'/minha-lista/status/' + ${item.idMinhaLista}}"
+                                method="post"
+                                class="form-status"
+                                >
+
+                                <select
+                                    name="status"
+                                    class="status-select"
+                                    th:data-id="${item.idMinhaLista}"
+                                    >
+
+                                    <option
+                                        value="Quero assistir"
+                                        th:selected="${item.status == 'Quero assistir'}"
+                                        >
+                                        📌 Quero assistir
+                                    </option>
+
+                                    <option
+                                        value="Assistindo"
+                                        th:selected="${item.status == 'Assistindo'}"
+                                        >
+                                        👀 Assistindo
+                                    </option>
+
+                                    <option
+                                        value="Concluído"
+                                        th:selected="${item.status == 'Concluído'}"
+                                        >
+                                        ✅ Concluído
+                                    </option>
+
+                                </select>
+
+                            </form>
+
+
+                            <form
+                                th:action="@{'/minha-lista/remover/' + ${item.drama.idDrama}}"
+                                method="post"
+                                >
+
+                                <button
+                                    type="submit"
+                                    class="botao-remover"
+                                    >
+                                    Remover da lista
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+
+                <div
+                    class="lista-vazia"
+                    id="listaVazia"
+                    th:if="${minhaLista == null or minhaLista.isEmpty()}"
+                    >
+
+                    <h2>
+                        Sua lista está vazia
+                    </h2>
+
+                    <p>
+                        Adicione dramas para acompanhá-los por aqui.
+                    </p>
+
+                    <a
+                        href="/catalogo"
+                        class="botao-catalogo"
+                        >
+                        Explorar catálogo
+                    </a>
+
+                </div>
+
+                <p
+                    class="nenhum-resultado"
+                    id="nenhumResultado"
+                    >
+                    Nenhum drama encontrado.
+                </p>
+
+            </section>
+
+        </main>
+
+
+        <footer>
+
+            <p>
+                © 2026 DramaList. Todos os direitos reservados.
+            </p>
+
+        </footer>
+
+
+        <script src="/js/minha-lista.js"></script>
+
+        <script src="/js/tema.js"></script>
+
+    </body>
+
+</html>

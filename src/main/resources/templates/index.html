@@ -1,0 +1,713 @@
+<!doctype html>
+<html lang="pt-BR">
+
+    <head>
+
+        <meta charset="UTF-8" />
+
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+            />
+
+        <title>DramaList</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+        <link
+            rel="preconnect"
+            href="https://fonts.gstatic.com"
+            crossorigin
+            />
+
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+            />
+
+        <link
+            rel="stylesheet"
+            href="/css/style.css"
+            />
+
+    </head>
+
+
+    <body>
+
+
+        <header>
+
+            <a href="/" class="logo">
+
+                <img
+                    src="/img/logodramalist.png"
+                    alt="Logo DramaList"
+                    />
+
+            </a>
+
+
+            <nav>
+
+                <a href="/">
+                    Início
+                </a>
+
+                <a href="/catalogo">
+                    Catálogo
+                </a>
+
+                <a href="/minha-lista">
+                    Minha Lista
+                </a>
+
+            </nav>
+
+
+            <div class="menu-perfil">
+
+                <button
+                    type="button"
+                    class="perfil"
+                    id="botaoPerfil"
+                    aria-label="Abrir menu do perfil"
+                    aria-expanded="false"
+                    th:text="${#strings.substring(usuario.nome, 0, 1).toUpperCase()}"
+                    >
+                </button>
+
+
+                <div
+                    class="dropdown-perfil"
+                    id="dropdownPerfil"
+                    >
+
+                    <a href="/perfil">
+                        👤 Meu perfil
+                    </a>
+
+                    <button
+                        type="button"
+                        id="botaoTema"
+                        >
+                        🌙 Tema escuro
+                    </button>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <main>
+
+
+            <section class="boas-vindas">
+
+                <h1>
+                    Descubra seu próximo Drama!
+                </h1>
+
+                <p>
+                    Encontre dramas para assistir e acompanhar
+                </p>
+
+
+                <div class="barra-pesquisa">
+
+                    <span class="icone-pesquisa">
+                        ⌕
+                    </span>
+
+                    <input
+                        type="search"
+                        id="pesquisa"
+                        placeholder="Pesquisar drama"
+                        />
+
+                </div>
+
+            </section>
+
+
+            <section class="destaques">
+
+                <h2>
+                    Destaques
+                </h2>
+
+
+                <div class="carrossel">
+
+
+                    <button
+                        class="seta seta-esquerda"
+                        id="anterior"
+                        aria-label="Dramas anteriores"
+                        >
+                        ‹
+                    </button>
+
+
+                    <div
+                        class="lista-destaques"
+                        id="listaDestaques"
+                        >
+
+
+                        <article
+                            class="card-drama"
+                            data-drama="alchemy-of-souls"
+                            >
+
+                            <div class="poster">
+
+                                <img
+                                    src="/img/Alchemy-of-Souls.jpg"
+                                    alt="Poster de Alchemy of Souls"
+                                    />
+
+                            </div>
+
+
+                            <div class="informacoes-card">
+
+                                <h3>
+                                    Alchemy of Souls
+                                </h3>
+
+                                <p class="avaliacao">
+
+                                    <span class="estrela">
+                                        ★
+                                    </span>
+
+                                    <span
+                                        th:if="${medias[1] != null}"
+                                        th:text="${#numbers.formatDecimal(medias[1], 1, 1)}"
+                                        >
+                                        5,0
+                                    </span>
+
+                                    <span
+                                        th:if="${medias[1] == null}"
+                                        >
+                                        Sem avaliações
+                                    </span>
+
+                                </p>
+
+                            </div>
+
+                        </article>
+
+
+                        <article
+                            class="card-drama"
+                            data-drama="business-proposal"
+                            >
+
+                            <div class="poster">
+
+                                <img
+                                    src="/img/Business-Proposal.jpg"
+                                    alt="Poster de Business Proposal"
+                                    />
+
+                            </div>
+
+
+                            <div class="informacoes-card">
+
+                                <h3>
+                                    Business Proposal
+                                </h3>
+
+                                <p class="avaliacao">
+
+                                    <span class="estrela">
+                                        ★
+                                    </span>
+
+                                    <span
+                                        th:if="${medias[2] != null}"
+                                        th:text="${#numbers.formatDecimal(medias[2], 1, 1)}"
+                                        >
+                                        5,0
+                                    </span>
+
+                                    <span
+                                        th:if="${medias[2] == null}"
+                                        >
+                                        Sem avaliações
+                                    </span>
+
+                                </p>
+
+                            </div>
+
+                        </article>
+
+
+                        <article
+                            class="card-drama"
+                            data-drama="crash-landing-on-you"
+                            >
+
+                            <div class="poster">
+
+                                <img
+                                    src="/img/Crash-Landing-on-You.jpg"
+                                    alt="Poster de Crash Landing on You"
+                                    />
+
+                            </div>
+
+
+                            <div class="informacoes-card">
+
+                                <h3>
+                                    Crash Landing on You
+                                </h3>
+
+                                <p class="avaliacao">
+
+                                    <span class="estrela">
+                                        ★
+                                    </span>
+
+                                    <span
+                                        th:if="${medias[3] != null}"
+                                        th:text="${#numbers.formatDecimal(medias[3], 1, 1)}"
+                                        >
+                                        5,0
+                                    </span>
+
+                                    <span
+                                        th:if="${medias[3] == null}"
+                                        >
+                                        Sem avaliações
+                                    </span>
+
+                                </p>
+
+                            </div>
+
+                        </article>
+
+
+                        <article
+                            class="card-drama"
+                            data-drama="extraordinary-attorney-woo"
+                            >
+
+                            <div class="poster">
+
+                                <img
+                                    src="/img/Extraordinary-Attorney-Woo.jpg"
+                                    alt="Poster de Extraordinary Attorney Woo"
+                                    />
+
+                            </div>
+
+
+                            <div class="informacoes-card">
+
+                                <h3>
+                                    Extraordinary Attorney Woo
+                                </h3>
+
+                                <p class="avaliacao">
+
+                                    <span class="estrela">
+                                        ★
+                                    </span>
+
+                                    <span
+                                        th:if="${medias[4] != null}"
+                                        th:text="${#numbers.formatDecimal(medias[4], 1, 1)}"
+                                        >
+                                        5,0
+                                    </span>
+
+                                    <span
+                                        th:if="${medias[4] == null}"
+                                        >
+                                        Sem avaliações
+                                    </span>
+
+                                </p>
+
+                            </div>
+
+                        </article>
+
+
+                        <article
+                            class="card-drama"
+                            data-drama="lovely-runner"
+                            >
+
+                            <div class="poster">
+
+                                <img
+                                    src="/img/Lovely-Runner.jpg"
+                                    alt="Poster de Lovely Runner"
+                                    />
+
+                            </div>
+
+
+                            <div class="informacoes-card">
+
+                                <h3>
+                                    Lovely Runner
+                                </h3>
+
+                                <p class="avaliacao">
+
+                                    <span class="estrela">
+                                        ★
+                                    </span>
+
+                                    <span
+                                        th:if="${medias[5] != null}"
+                                        th:text="${#numbers.formatDecimal(medias[5], 1, 1)}"
+                                        >
+                                        5,0
+                                    </span>
+
+                                    <span
+                                        th:if="${medias[5] == null}"
+                                        >
+                                        Sem avaliações
+                                    </span>
+
+                                </p>
+
+                            </div>
+
+                        </article>
+
+
+                        <article
+                            class="card-drama"
+                            data-drama="moving"
+                            >
+
+                            <div class="poster">
+
+                                <img
+                                    src="/img/Moving.jpg"
+                                    alt="Poster de Moving"
+                                    />
+
+                            </div>
+
+
+                            <div class="informacoes-card">
+
+                                <h3>
+                                    Moving
+                                </h3>
+
+                                <p class="avaliacao">
+
+                                    <span class="estrela">
+                                        ★
+                                    </span>
+
+                                    <span
+                                        th:if="${medias[6] != null}"
+                                        th:text="${#numbers.formatDecimal(medias[6], 1, 1)}"
+                                        >
+                                        5,0
+                                    </span>
+
+                                    <span
+                                        th:if="${medias[6] == null}"
+                                        >
+                                        Sem avaliações
+                                    </span>
+
+                                </p>
+
+                            </div>
+
+                        </article>
+
+
+                        <article
+                            class="card-drama"
+                            data-drama="my-demon"
+                            >
+
+                            <div class="poster">
+
+                                <img
+                                    src="/img/My-Demon.jpg"
+                                    alt="Poster de My Demon"
+                                    />
+
+                            </div>
+
+
+                            <div class="informacoes-card">
+
+                                <h3>
+                                    My Demon
+                                </h3>
+
+                                <p class="avaliacao">
+
+                                    <span class="estrela">
+                                        ★
+                                    </span>
+
+                                    <span
+                                        th:if="${medias[7] != null}"
+                                        th:text="${#numbers.formatDecimal(medias[7], 1, 1)}"
+                                        >
+                                        5,0
+                                    </span>
+
+                                    <span
+                                        th:if="${medias[7] == null}"
+                                        >
+                                        Sem avaliações
+                                    </span>
+
+                                </p>
+
+                            </div>
+
+                        </article>
+
+
+
+                        <article
+                            class="card-drama"
+                            data-drama="queen-of-tears"
+                            >
+
+                            <div class="poster">
+
+                                <img
+                                    src="/img/Queen-of-Tears.jpg"
+                                    alt="Poster de Queen of Tears"
+                                    />
+
+                            </div>
+
+
+                            <div class="informacoes-card">
+
+                                <h3>
+                                    Queen of Tears
+                                </h3>
+
+                                <p class="avaliacao">
+
+                                    <span class="estrela">
+                                        ★
+                                    </span>
+
+                                    <span
+                                        th:if="${medias[8] != null}"
+                                        th:text="${#numbers.formatDecimal(medias[8], 1, 1)}"
+                                        >
+                                        5,0
+                                    </span>
+
+                                    <span
+                                        th:if="${medias[8] == null}"
+                                        >
+                                        Sem avaliações
+                                    </span>
+
+                                </p>
+
+                            </div>
+
+                        </article>
+
+
+                        <article
+                            class="card-drama"
+                            data-drama="true-beauty"
+                            >
+
+                            <div class="poster">
+
+                                <img
+                                    src="/img/True-Beauty.jpg"
+                                    alt="Poster de True Beauty"
+                                    />
+
+                            </div>
+
+
+                            <div class="informacoes-card">
+
+                                <h3>
+                                    True Beauty
+                                </h3>
+
+                                <p class="avaliacao">
+
+                                    <span class="estrela">
+                                        ★
+                                    </span>
+
+                                    <span
+                                        th:if="${medias[9] != null}"
+                                        th:text="${#numbers.formatDecimal(medias[9], 1, 1)}"
+                                        >
+                                        5,0
+                                    </span>
+
+                                    <span
+                                        th:if="${medias[9] == null}"
+                                        >
+                                        Sem avaliações
+                                    </span>
+
+                                </p>
+
+                            </div>
+
+                        </article>
+
+
+                        <article
+                            class="card-drama"
+                            data-drama="twenty-five-twenty-one"
+                            >
+
+                            <div class="poster">
+
+                                <img
+                                    src="/img/Twenty-Five-Twenty-One.jpg"
+                                    alt="Poster de Twenty-Five Twenty-One"
+                                    />
+
+                            </div>
+
+
+                            <div class="informacoes-card">
+
+                                <h3>
+                                    Twenty-Five Twenty-One
+                                </h3>
+
+                                <p class="avaliacao">
+
+                                    <span class="estrela">
+                                        ★
+                                    </span>
+
+                                    <span
+                                        th:if="${medias[10] != null}"
+                                        th:text="${#numbers.formatDecimal(medias[10], 1, 1)}"
+                                        >
+                                        5,0
+                                    </span>
+
+                                    <span
+                                        th:if="${medias[10] == null}"
+                                        >
+                                        Sem avaliações
+                                    </span>
+
+                                </p>
+
+                            </div>
+
+                        </article>
+
+
+                        <article
+                            class="card-drama"
+                            data-drama="when-life-gives-you-tangerines"
+                            >
+
+                            <div class="poster">
+
+                                <img
+                                    src="/img/When-Life-Gives-You-Tangerines.jpg"
+                                    alt="Poster de When Life Gives You Tangerines"
+                                    />
+
+                            </div>
+
+
+                            <div class="informacoes-card">
+
+                                <h3>
+                                    When Life Gives You Tangerines
+                                </h3>
+
+                                <p class="avaliacao">
+
+                                    <span class="estrela">
+                                        ★
+                                    </span>
+
+                                    <span
+                                        th:if="${medias[11] != null}"
+                                        th:text="${#numbers.formatDecimal(medias[11], 1, 1)}"
+                                        >
+                                        5,0
+                                    </span>
+
+                                    <span
+                                        th:if="${medias[11] == null}"
+                                        >
+                                        Sem avaliações
+                                    </span>
+
+                                </p>
+
+                            </div>
+
+                        </article>
+
+
+                    </div>
+
+
+                    <button
+                        class="seta seta-direita"
+                        id="proximo"
+                        aria-label="Próximos dramas"
+                        >
+                        ›
+                    </button>
+
+
+                </div>
+
+            </section>
+
+        </main>
+
+
+        <footer>
+
+            <p>
+                © 2026 DramaList. Todos os direitos reservados.
+            </p>
+
+        </footer>
+
+
+        <script src="/js/script.js"></script>
+
+        <script src="/js/tema.js"></script>
+
+
+    </body>
+
+</html>

@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="pt-BR">
+
+    <head>
+
+        <meta charset="UTF-8">
+
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+            >
+
+        <title>Catálogo - DramaList</title>
+
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+
+        <link
+            rel="preconnect"
+            href="https://fonts.gstatic.com"
+            crossorigin
+            >
+
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+            >
+
+
+        <link
+            rel="stylesheet"
+            href="/css/style.css"
+            >
+
+        <link
+            rel="stylesheet"
+            href="/css/catalogo.css"
+            >
+
+    </head>
+
+
+    <body>
+
+
+
+        <header>
+
+            <a href="/" class="logo">
+
+                <img
+                    src="/img/logodramalist.png"
+                    alt="Logo DramaList"
+                    >
+
+            </a>
+
+
+            <nav>
+
+                <a href="/">
+                    Início
+                </a>
+
+                <a
+                    href="/catalogo"
+                    class="pagina-atual"
+                    >
+                    Catálogo
+                </a>
+
+                <a href="/minha-lista">
+                    Minha Lista
+                </a>
+
+            </nav>
+
+
+            <div class="menu-perfil">
+
+                <button
+                    type="button"
+                    class="perfil"
+                    id="botaoPerfil"
+                    aria-label="Abrir menu do perfil"
+                    aria-expanded="false"
+                    th:text="${#strings.substring(usuario.nome, 0, 1).toUpperCase()}"
+                    ></button>
+
+
+                <div
+                    class="dropdown-perfil"
+                    id="dropdownPerfil"
+                    >
+
+                    <a href="/perfil">
+                        👤 Meu perfil
+                    </a>
+
+                    <button
+                        type="button"
+                        id="botaoTema"
+                        >
+                        🌙 Tema escuro
+                    </button>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <main class="catalogo">
+
+
+            <section class="cabecalho-catalogo">
+
+                <h1>
+                    Catálogo de Dramas
+                </h1>
+
+                <p>
+                    Explore dramas para assistir e acompanhar
+                </p>
+
+
+                <div class="barra-pesquisa">
+
+                    <span class="icone-pesquisa">
+                        ⌕
+                    </span>
+
+
+                    <input
+                        type="search"
+                        id="pesquisaCatalogo"
+                        placeholder="Pesquisar drama"
+                        autocomplete="off"
+                        >
+
+                </div>
+
+            </section>
+
+
+            <section class="filtros">
+
+                <button
+                    class="filtro ativo"
+                    data-genero="todos"
+                    >
+                    Todos
+                </button>
+
+                <button
+                    class="filtro"
+                    data-genero="romance"
+                    >
+                    Romance
+                </button>
+
+                <button
+                    class="filtro"
+                    data-genero="comedia"
+                    >
+                    Comédia
+                </button>
+
+                <button
+                    class="filtro"
+                    data-genero="acao"
+                    >
+                    Ação
+                </button>
+
+                <button
+                    class="filtro"
+                    data-genero="fantasia"
+                    >
+                    Fantasia
+                </button>
+
+                <button
+                    class="filtro"
+                    data-genero="drama"
+                    >
+                    Drama
+                </button>
+
+            </section>
+
+
+
+            <section class="resultado-catalogo">
+
+
+                <div
+                    class="grid-dramas"
+                    id="gridDramas"
+                    >
+
+
+                    <article
+                        class="card-catalogo"
+                        th:each="drama : ${dramas}"
+                        th:data-drama="${drama.idDrama}"
+                        th:data-generos="${generos[drama.idDrama]}"
+                        >
+
+
+                        <div class="poster-catalogo">
+
+                            <img
+                                th:src="@{'/img/' + ${imagens[drama.idDrama]}}"
+                                th:alt="'Poster de ' + ${drama.titulo}"
+                                >
+
+                        </div>
+
+
+                        <div class="info-catalogo">
+
+                            <h2
+                                th:text="${drama.titulo}"
+                                >
+                                Título do drama
+                            </h2>
+
+
+                            <p class="avaliacao-catalogo">
+
+                                <span>
+                                    ★
+                                </span>
+
+
+                                <span
+                                    th:if="${medias[drama.idDrama] != null}"
+                                    th:text="${#numbers.formatDecimal(
+                                    medias[drama.idDrama],
+                                    1,
+                                    1
+                                    )}"
+                                    >
+                                    0,0
+                                </span>
+
+
+                                <span
+                                    th:if="${medias[drama.idDrama] == null}"
+                                    >
+                                    --
+                                </span>
+
+                            </p>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+
+                <p
+                    class="sem-resultados"
+                    id="nenhumResultado"
+                    >
+                    Nenhum drama encontrado.
+                </p>
+
+            </section>
+
+        </main>
+
+
+        <footer>
+
+            <p>
+                © 2026 DramaList. Todos os direitos reservados.
+            </p>
+
+        </footer>
+
+
+
+        <script src="/js/catalogo.js"></script>
+
+        <script src="/js/tema.js"></script>
+
+    </body>
+
+</html>

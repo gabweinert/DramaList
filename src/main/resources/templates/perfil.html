@@ -1,0 +1,748 @@
+<!doctype html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+
+        <meta charset="UTF-8" />
+
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+            />
+
+        <title>Meu Perfil - DramaList</title>
+
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+        <link
+            rel="preconnect"
+            href="https://fonts.googleapis.com"
+            crossorigin
+            />
+
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+            />
+
+        <link
+            rel="stylesheet"
+            th:href="@{/css/style.css}"
+            />
+
+        <link
+            rel="stylesheet"
+            th:href="@{/css/perfil.css}"
+            />
+
+    </head>
+
+
+    <body>
+
+        <header>
+
+            <a href="/" class="logo">
+
+                <img
+                    src="/img/logodramalist.png"
+                    alt="Logo DramaList"
+                    />
+
+            </a>
+
+
+            <nav>
+
+                <a href="/">
+                    Início
+                </a>
+
+                <a href="/catalogo">
+                    Catálogo
+                </a>
+
+                <a href="/minha-lista">
+                    Minha Lista
+                </a>
+
+            </nav>
+
+
+            <div class="menu-perfil">
+
+                <button
+                    type="button"
+                    class="perfil ativo"
+                    id="botaoPerfil"
+                    aria-label="Abrir menu do perfil"
+                    aria-expanded="false"
+                    th:text="${#strings.substring(usuario.nome, 0, 1).toUpperCase()}"
+                    >
+                </button>
+
+
+                <div
+                    class="dropdown-perfil"
+                    id="dropdownPerfil"
+                    >
+
+                    <a href="/perfil">
+                        👤 Meu perfil
+                    </a>
+
+                    <button
+                        type="button"
+                        id="botaoTema"
+                        >
+                        🌙 Tema escuro
+                    </button>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <main class="pagina-perfil">
+
+
+
+            <section class="perfil-cabecalho">
+
+                <div class="avatar-perfil">
+
+                    <span
+                        id="avatarPerfil"
+                        th:text="${#strings.substring(usuario.nome, 0, 1).toUpperCase()}"
+                        >
+                    </span>
+
+                </div>
+
+
+                <h1
+                    id="nomePerfil"
+                    th:text="${usuario.nome}"
+                    >
+                </h1>
+
+
+                <p>
+                    Bem-vindo ao DramaList!
+                </p>
+
+            </section>
+
+
+            <section class="perfil-painel">
+
+
+                <div class="dados-conta">
+
+                    <h2>
+                        Dados da conta
+                    </h2>
+
+
+                    <div class="dado-conta">
+
+                        <span>
+                            Nome
+                        </span>
+
+                        <strong
+                            id="nomeExibicao"
+                            th:text="${usuario.nome}"
+                            >
+                        </strong>
+
+                    </div>
+
+
+                    <div class="dado-conta">
+
+                        <span>
+                            E-mail
+                        </span>
+
+                        <strong
+                            id="emailExibicao"
+                            th:text="${usuario.email}"
+                            >
+                        </strong>
+
+                    </div>
+
+
+                    <div class="acoes-conta">
+
+                        <button
+                            type="button"
+                            id="botaoEditarPerfil"
+                            class="botao-conta"
+                            >
+                            ✏️ Editar informações
+                        </button>
+
+
+                        <button
+                            type="button"
+                            id="botaoAlterarSenha"
+                            class="botao-conta secundario"
+                            >
+                            🔒 Alterar senha
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="atividade-conta">
+
+                    <h2>
+                        Minha atividade
+                    </h2>
+
+
+                    <div class="estatisticas-perfil">
+
+
+                        <div class="estatistica">
+
+                            <span class="icone-estatistica">
+                                📌
+                            </span>
+
+                            <strong
+                                id="totalQueroAssistir"
+                                th:text="${totalQueroAssistir}"
+                                >
+                            </strong>
+
+                            <span>
+                                Quero assistir
+                            </span>
+
+                        </div>
+
+                        <div class="estatistica">
+
+                            <span class="icone-estatistica">
+                                👀
+                            </span>
+
+                            <strong
+                                id="totalAssistindo"
+                                th:text="${totalAssistindo}"
+                                >
+                            </strong>
+
+                            <span>
+                                Assistindo
+                            </span>
+
+                        </div>
+
+
+                        <div class="estatistica">
+
+                            <span class="icone-estatistica">
+                                ✅
+                            </span>
+
+                            <strong
+                                id="totalConcluidos"
+                                th:text="${totalConcluidos}"
+                                >
+                            </strong>
+
+                            <span>
+                                Concluídos
+                            </span>
+
+                        </div>
+
+
+                        <div class="estatistica">
+
+                            <span class="icone-estatistica">
+                                🎬
+                            </span>
+
+                            <strong
+                                id="totalDramas"
+                                th:text="${totalDramas}"
+                                >
+                            </strong>
+
+                            <span>
+                                Dramas salvos
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <section class="minhas-avaliacoes">
+
+
+                <div class="cabecalho-minhas-avaliacoes">
+
+                    <div>
+
+                        <h2>
+                            Minhas Avaliações
+                        </h2>
+
+                        <p>
+                            Avaliações que você fez no DramaList.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="lista-minhas-avaliacoes"
+                    th:if="${!minhasAvaliacoes.isEmpty()}"
+                    >
+
+
+                    <article
+                        class="card-minha-avaliacao"
+                        th:each="avaliacao : ${minhasAvaliacoes}"
+                        th:attr="
+                        data-id-avaliacao=${avaliacao.idAvaliacao},
+                        data-id-drama=${avaliacao.drama.idDrama},
+                        data-nota=${avaliacao.nota},
+                        data-resenha=${avaliacao.resenha}
+                        "
+                        >
+
+
+                        <div class="info-minha-avaliacao">
+
+                            <h3
+                                th:text="${avaliacao.drama.titulo}"
+                                >
+                                Nome do drama
+                            </h3>
+
+
+                            <div class="nota-minha-avaliacao">
+
+                                <span>
+                                    ★
+                                </span>
+
+                                <strong
+                                    th:text="${avaliacao.nota + '/5'}"
+                                    >
+                                    5/5
+                                </strong>
+
+                            </div>
+
+
+                            <p
+                                class="resenha-minha-avaliacao"
+                                th:if="${avaliacao.resenha != null and !avaliacao.resenha.isEmpty()}"
+                                th:text="${avaliacao.resenha}"
+                                >
+                                Resenha
+                            </p>
+
+
+                            <p
+                                class="sem-resenha-minha-avaliacao"
+                                th:if="${avaliacao.resenha == null or avaliacao.resenha.isEmpty()}"
+                                >
+                                Nenhuma resenha adicionada.
+                            </p>
+
+                        </div>
+
+
+                        <div class="acoes-minha-avaliacao">
+
+                            <button
+                                type="button"
+                                class="botao-editar-avaliacao"
+                                >
+                                ✏️ Editar
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="botao-excluir-avaliacao"
+                                >
+                                🗑️ Excluir
+                            </button>
+
+                        </div>
+
+                    </article>
+
+
+                </div>
+
+
+                <div
+                    class="nenhuma-minha-avaliacao"
+                    th:if="${minhasAvaliacoes.isEmpty()}"
+                    >
+
+                    <div class="icone-avaliacao-vazia-perfil">
+                        ⭐
+                    </div>
+
+                    <h3>
+                        Você ainda não fez nenhuma avaliação.
+                    </h3>
+
+                    <p>
+                        Acesse um drama no catálogo para deixar sua primeira avaliação.
+                    </p>
+
+                </div>
+
+            </section>
+
+            <section
+                class="formulario-conta"
+                id="formularioEditar"
+                >
+
+                <h2>
+                    Editar informações
+                </h2>
+
+
+                <div class="campo-perfil">
+
+                    <label for="nomeUsuario">
+                        Nome
+                    </label>
+
+                    <input
+                        type="text"
+                        id="nomeUsuario"
+                        th:value="${usuario.nome}"
+                        placeholder="Digite seu nome"
+                        />
+
+                </div>
+
+
+                <div class="campo-perfil">
+
+                    <label for="emailPerfil">
+                        E-mail
+                    </label>
+
+                    <input
+                        type="email"
+                        id="emailPerfil"
+                        th:value="${usuario.email}"
+                        placeholder="Digite seu e-mail"
+                        />
+
+                </div>
+
+
+                <div class="botoes-formulario">
+
+                    <button
+                        type="button"
+                        id="salvarPerfil"
+                        class="botao-salvar"
+                        >
+                        💾 Salvar
+                    </button>
+
+
+                    <button
+                        type="button"
+                        id="cancelarEdicao"
+                        class="botao-cancelar"
+                        >
+                        Cancelar
+                    </button>
+
+                </div>
+
+
+                <p
+                    id="mensagemPerfil"
+                    class="mensagem-perfil"
+                    >
+                </p>
+
+            </section>
+
+            <section
+                class="formulario-conta"
+                id="formularioSenha"
+                >
+
+                <h2>
+                    Alterar senha
+                </h2>
+
+
+                <div class="campo-perfil">
+
+                    <label for="senhaAtual">
+                        Senha atual
+                    </label>
+
+                    <input
+                        type="password"
+                        id="senhaAtual"
+                        placeholder="Digite sua senha atual"
+                        />
+
+                </div>
+
+
+                <div class="campo-perfil">
+
+                    <label for="novaSenha">
+                        Nova senha
+                    </label>
+
+                    <input
+                        type="password"
+                        id="novaSenha"
+                        placeholder="Digite sua nova senha"
+                        />
+
+                </div>
+
+                <div class="campo-perfil">
+
+                    <label for="confirmarSenha">
+                        Confirmar nova senha
+                    </label>
+
+                    <input
+                        type="password"
+                        id="confirmarSenha"
+                        placeholder="Digite novamente sua nova senha"
+                        />
+
+                </div>
+
+
+                <div class="botoes-formulario">
+
+                    <button
+                        type="button"
+                        id="salvarSenha"
+                        class="botao-salvar"
+                        >
+                        🔒 Salvar nova senha
+                    </button>
+
+
+                    <button
+                        type="button"
+                        id="cancelarSenha"
+                        class="botao-cancelar"
+                        >
+                        Cancelar
+                    </button>
+
+                </div>
+
+
+                <p
+                    id="mensagemSenha"
+                    class="mensagem-perfil"
+                    >
+                </p>
+
+            </section>
+
+
+            <section class="acoes-perfil">
+
+                <a
+                    href="/minha-lista"
+                    class="botao-perfil"
+                    >
+                    Ver Minha Lista
+                </a>
+
+            </section>
+
+        </main>
+
+
+        <div
+            class="modal-perfil-avaliacao"
+            id="modalPerfilAvaliacao"
+            >
+
+
+            <div class="conteudo-modal-perfil">
+
+
+                <button
+                    type="button"
+                    class="fechar-modal-perfil"
+                    id="fecharModalPerfil"
+                    aria-label="Fechar"
+                    >
+                    ×
+                </button>
+
+
+                <h2>
+                    Editar avaliação
+                </h2>
+
+
+                <p
+                    class="subtitulo-modal-perfil"
+                    id="nomeDramaEdicao"
+                    >
+                    Drama
+                </p>
+
+
+                <div
+                    class="estrelas-modal-perfil"
+                    id="estrelasModalPerfil"
+                    >
+
+                    <button
+                        type="button"
+                        class="estrela-modal-perfil"
+                        data-nota="1"
+                        >
+                        ★
+                    </button>
+
+                    <button
+                        type="button"
+                        class="estrela-modal-perfil"
+                        data-nota="2"
+                        >
+                        ★
+                    </button>
+
+                    <button
+                        type="button"
+                        class="estrela-modal-perfil"
+                        data-nota="3"
+                        >
+                        ★
+                    </button>
+
+                    <button
+                        type="button"
+                        class="estrela-modal-perfil"
+                        data-nota="4"
+                        >
+                        ★
+                    </button>
+
+                    <button
+                        type="button"
+                        class="estrela-modal-perfil"
+                        data-nota="5"
+                        >
+                        ★
+                    </button>
+
+                </div>
+
+
+                <p
+                    class="nota-modal-perfil"
+                    id="notaModalPerfil"
+                    >
+                    Selecione uma nota.
+                </p>
+
+                <div class="campo-modal-perfil">
+
+                    <label for="resenhaModalPerfil">
+                        Resenha
+                    </label>
+
+                    <textarea
+                        id="resenhaModalPerfil"
+                        maxlength="255"
+                        placeholder="Escreva sua opinião sobre o drama..."
+                        ></textarea>
+
+                    <small>
+                        Máximo de 255 caracteres.
+                    </small>
+
+                </div>
+
+                <p
+                    class="mensagem-modal-perfil"
+                    id="mensagemModalPerfil"
+                    >
+                </p>
+
+                <div class="botoes-modal-perfil">
+
+                    <button
+                        type="button"
+                        class="botao-cancelar-modal"
+                        id="cancelarModalPerfil"
+                        >
+                        Cancelar
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="botao-salvar-modal"
+                        id="salvarModalPerfil"
+                        >
+                        💾 Salvar avaliação
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <footer>
+
+            <p>
+                © 2026 DramaList. Todos os direitos reservados.
+            </p>
+
+        </footer>
+
+        <script src="/js/dados.js"></script>
+
+        <script src="/js/perfil.js"></script>
+
+        <script src="/js/tema.js"></script>
+
+
+    </body>
+
+</html>
